@@ -1,20 +1,20 @@
 use chacha20poly1305::{
     aead::{Aead, KeyInit, Nonce},
     XChaCha20Poly1305,
+    Key,
 };
-use rand::{rngs::OsRng, RngCore};
 
-// use rand::{rngs::OsRng, RngCore};
 
 struct CryptoEngine {
     cipher: XChaCha20Poly1305,
 }
 
-
-struct EncryptionKey {
-    key: [u8; 32],
+impl CryptoEngine {
+    fn new(_key : &[u8;32]) -> Self {
+            let cipher = XChaCha20Poly1305::new(Key::from_slice(&[0; 32]));
+            Self { cipher }
+    }
 }
-
 
 
 fn main() {

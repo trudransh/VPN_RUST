@@ -1,13 +1,3 @@
-1. Create a CryptoEngine Struct
-   - Import chacha20poly1305 modules (aead::{Aead, NewAead}, XChaCha20Poly1305).
-   - Define CryptoEngine struct with a cipher field of type XChaCha20Poly1305.
-   - Ensure proper ownership for the cipher field.
-
-2. Implement a Constructor for CryptoEngine
-   - Add a new method that takes a &[u8; 32] key.
-   - Initialize XChaCha20Poly1305 with the key.
-   - Return a CryptoEngine instance.
-
 3. Generate a Random Nonce for Encryption
    - Import rand::rngs::OsRng and rand::RngCore.
    - Write a generate_nonce function returning [u8; 24].
