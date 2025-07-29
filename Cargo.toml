@@ -1,0 +1,8 @@
+[package]
+name = "vpn-encrypt"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+chacha20poly1305 = "0.10" #THis is a library for the chacha20poly1305 algorithm
+rand = "0.8.5" #This is a library for the random number generator 
