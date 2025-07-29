@@ -1,0 +1,49 @@
+1. Create a CryptoEngine Struct
+   - Import chacha20poly1305 modules (aead::{Aead, NewAead}, XChaCha20Poly1305).
+   - Define CryptoEngine struct with a cipher field of type XChaCha20Poly1305.
+   - Ensure proper ownership for the cipher field.
+
+2. Implement a Constructor for CryptoEngine
+   - Add a new method that takes a &[u8; 32] key.
+   - Initialize XChaCha20Poly1305 with the key.
+   - Return a CryptoEngine instance.
+
+3. Generate a Random Nonce for Encryption
+   - Import rand::rngs::OsRng and rand::RngCore.
+   - Write a generate_nonce function returning [u8; 24].
+   - Use OsRng to fill the nonce with random bytes.
+   - Test by printing the nonce in main.
+
+4. Implement the Encryption Function
+   - Add encrypt method to CryptoEngine taking &str (message) and &str (AAD).
+   - Return Result<Vec<u8>, &'static str>.
+   - Generate a nonce using generate_nonce.
+   - Create a Payload with message and AAD as bytes.
+   - Encrypt using cipher.encrypt.
+   - Combine nonce and ciphertext in a Vec<u8>.
+
+5. Implement the Decryption Function
+   - Add decrypt method taking &[u8] (data) and &str (AAD).
+   - Return Result<String, &'static str>.
+   - Split data into nonce (first 24 bytes) and ciphertext.
+   - Create Payload with ciphertext and AAD.
+   - Decrypt using cipher.decrypt.
+   - Convert plaintext to String.
+
+6. Test Encryption and Decryption in Main
+   - Create a placeholder [0u8; 32] key.
+   - Initialize CryptoEngine.
+   - Encrypt "Hello, VPN!" with AAD "vpn-auth".
+   - Decrypt the result and print both outputs.
+   - Test with invalid AAD to see errors.
+
+7. Add Basic Error Handling
+   - Check for empty messages in encrypt.
+   - Validate data length in decrypt (>= 24 bytes).
+   - Use specific error messages for encryption, decryption, and UTF-8 errors.
+   - Test error cases in main.
+
+8. Experiment with AAD Variations
+   - Encrypt with AAD "vpn-auth".
+   - Decrypt with wrong AAD (e.g., "wrong-auth").
+   - Observe and print authentication failure errors.
