@@ -3,20 +3,28 @@ use chacha20poly1305::{
     XChaCha20Poly1305,
     Key,
 };
-
+use rand::{rngs::OsRng, RngCore};
 
 struct CryptoEngine {
     cipher: XChaCha20Poly1305,
 }
 
 impl CryptoEngine {
-    fn new(_key : &[u8;32]) -> Self {
-            let cipher = XChaCha20Poly1305::new(Key::from_slice(&[0; 32]));
+    fn new(key : &[u8;32]) -> Self {
+            let cipher = XChaCha20Poly1305::new(Key::from_slice(key));
             Self { cipher }
     }
+}
+
+fn generate_nonce() -> [u8;24] {
+    let mut nonce = [0;24];
+    OsRng.fill_bytes(&mut nonce);
+    nonce
 }
 
 
 fn main() {
     println!("Hello, world!");
+    let nonce = generate_nonce();
+    println!("Nonce: {:?}", nonce);
 }
